@@ -1,0 +1,20 @@
+{% extends "livros/livro_base.html" %}
+
+{% block prelivro %}
+<div class="container">
+  <h1>{{livro.titulo}}</h1>
+  <h2> Total de Notas: {{livro.total_de_notas}}</h2>
+
+  <div class="content">
+  	{% if user in livro.leitores.all %}
+  		<a href="{% url 'livros:leave' pk=livro.pk %}" class="btn btn-lg btn-warning"><span class="fa fa-times-circle-o"></span>Tirar da Lista</a>
+  	{% else %}
+  		<a href="{% url 'livros:join' pk=livro.pk %}" class="btn btn-lg btn-warning"><span class="fa fa-check-circle-o"></span>Colocar na Lista</a>
+  	{% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+{% block livro_conteudo %}
+{% endblock %}
