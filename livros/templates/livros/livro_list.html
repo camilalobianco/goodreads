@@ -1,0 +1,41 @@
+{% extends "livros/livro_base.html" %}
+
+{% block prelivro %}
+<div class="col-md-4">
+	<div class="content">
+		{% if user.is_authenticated %}
+		<h2>
+			Bem Vindo de Volta
+			<br>@{{user.username }}
+		</h2>
+
+    {% endif %}
+			<h2>Livros</h2>
+
+			<p>Bem vindo a pagina de Livros! <br>Selecione um livro que você possui interessante</p>
+	</div>
+	{% if user.is_authenticated %}
+	<a href="{% url 'livros:create' %}" class="btn btn-warning" role="button"><span class="fa fa-plus"></span> Crie um novo Livro</a>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block livro_conteudo %}
+<div class="col-md-8">
+	<div class="list-livro">
+		{% for livro in object_list %}
+		<a href="{% url 'livros:single' pk=livro.pk %}"
+		class="list-livro-item list-livro-item-action flex-column align-items-start">
+			<h3 class="mb-1">{{ livro.titulo }}</h3>
+			<p class="mb-1">{{ livro.num_paginas }}</p>
+			<div class="d-flex w-40 justify-content-between">
+				<small class="text-muted"><span class="badge badge-secondary">
+					{{ livro.leitores.count }}</span> leitor{{ livro.leitores.count|pluralize:"es" }}</small>
+			<span></span><span></span>
+			</div>
+		</a>
+
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

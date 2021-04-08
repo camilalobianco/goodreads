@@ -1,0 +1,15 @@
+{% extends "livros/livro_base.html" %}
+{% load bootstrap4 %}
+
+{% block livro_conteudo %}
+<div class="container">
+  <h4>Crie um novo livro</h4>
+  <form method="POST" action="{% url 'livros:create' %}" id="livroForm">
+  	{% csrf_token %}
+  	{% bootstrap_form form %}
+    {% buttons %}
+  		<button type="submit" class="btn btn-primary btn-large">Criar</button>
+  	{% endbuttons %}
+  </form>
+</div>
+{% endblock %}

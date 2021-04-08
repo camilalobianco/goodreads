@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'bootstrap4',
     'accounts.apps.AccountsConfig',
+    'livros.apps.LivrosConfig',
+    'resenhas.apps.ResenhasConfig',
 ]
 
 MIDDLEWARE = [
