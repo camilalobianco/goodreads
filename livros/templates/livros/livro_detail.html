@@ -6,15 +6,43 @@
   <h2> Total de Notas: {{livro.total_de_notas}}</h2>
 
   <div class="content">
-  	{% if user in livro.leitores.all %}
-  		<a href="{% url 'livros:leave' pk=livro.pk %}" class="btn btn-lg btn-warning"><span class="fa fa-times-circle-o"></span>Tirar da Lista</a>
-  	{% else %}
-  		<a href="{% url 'livros:join' pk=livro.pk %}" class="btn btn-lg btn-warning"><span class="fa fa-check-circle-o"></span>Colocar na Lista</a>
-  	{% endif %}
-
+    {% if user.is_authenticated %}
+  	   {% if user in livro.leitores.all %}
+  		   <a href="{% url 'livros:leave' pk=livro.pk %}" class="btn btn-lg btn-warning"><span class="fa fa-times-circle-o"></span>Tirar da Lista</a>
+  	   {% else %}
+  		   <a href="{% url 'livros:join' pk=livro.pk %}" class="btn btn-lg btn-warning"><span class="fa fa-check-circle-o"></span>Colocar na Lista</a>
+  	   {% endif %}
+    {% else %}
+      <a href="{% url 'accounts:login' %}" class="btn btn-lg btn-warning">Faça login</a>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
 
 {% block livro_conteudo %}
+<hr>
+<div class="container">
+{% if user.is_authenticated %}
+  <a class="btn btn-primary btn-comment" href="{% url 'resenhas:adiciona_resenha' pk=livro.pk %}">Adiciona Resenha</a>
+{% endif %}
+
+{% for resenha in livro.resenhas.all %}
+<br>
+    {% if resenha.resenha_aprovada or user.is_superuser %}
+
+            {{ resenha.data_publicacao }}
+            {% if not resenha.resenha_aprovada %}
+                <a class="btn btn-primary" href="{% url 'resenhas:remove_resenha' pk=resenha.pk %}"><span class="fa fa-remove"></span></a>
+                <a class="btn btn-primary" href="{% url 'resenhas:aprova_resenha' pk=resenha.pk %}"><span class="fa fa-check"></span></a>
+            {% endif %}
+
+        <p>{{ resenha.texto|safe|linebreaks }}</p>
+        <p>Publicada por: <strong>{{ resenha.usuario }}</strong></p>
+
+    {% endif %}
+{% empty %}
+    <p>Nenhuma resenha publicada.</p>
+{% endfor %}
+</div>
+
 {% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'resenhas/resenha_base.html' %}
+
+{% block resenha_conteudo %}
+    <h1>Nova Resenha</h1>
+    <form method="POST" class="resenha-form">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="save btn btn-default">Resenha</button>
+    </form>
+
+    <script>var editor = new MediumEditor('.editable');</script>
+
+{% endblock %}

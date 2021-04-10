@@ -9,7 +9,10 @@ from django.views import generic
 from django.shortcuts import get_object_or_404
 
 from livros.models import Livro, UsuarioLivro
+from accounts.views import superuser_required
+
 # Create your views here.
+@superuser_required()
 class CriaLivro(LoginRequiredMixin,generic.CreateView):
     fields = ('titulo', 'num_paginas', 'data_publicacao', 'total_de_notas',
             'nota_media')
@@ -30,7 +33,7 @@ class IncluiLivroNaLista(LoginRequiredMixin, generic.RedirectView):
 
     def get(self,request,*args,**kwargs):
         livro = get_object_or_404(Livro, pk=self.kwargs.get('pk'))
-        print(livro)
+
         try:
             UsuarioLivro.objects.create(usuario_id=self.request.user, livro_id=livro)
         except IntegrityError:
