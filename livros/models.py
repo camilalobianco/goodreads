@@ -3,11 +3,18 @@ from django.contrib.auth import get_user_model
 from django import template
 from django.db import models
 from django.urls import reverse
+from autor.models import Autor
+from genero.models import Genero
+from editora.models import Editora
+
 # Create your models here.
 User = get_user_model()
 register = template.Library()
 
 class Livro(models.Model):
+    autor = models.ForeignKey(Autor, on_delete=models.CASCADE,  default='')
+    editora = models.ForeignKey(Editora, on_delete=models.CASCADE,  default='')
+    genero = models.ForeignKey(Genero, on_delete=models.CASCADE,  default='')
     titulo = models.CharField(max_length=50, unique=True)
     nota_media = models.DecimalField(blank=True, max_digits=3, decimal_places=1)
     num_paginas = models.IntegerField()

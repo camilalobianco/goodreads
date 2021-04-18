@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'livros.apps.LivrosConfig',
     'resenhas.apps.ResenhasConfig',
+    'autor.apps.AutorConfig',
+    'editora.apps.EditoraConfig',
+    'genero.apps.GeneroConfig',
 ]
 
 MIDDLEWARE = [

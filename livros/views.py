@@ -15,7 +15,7 @@ from accounts.views import superuser_required
 @superuser_required()
 class CriaLivro(LoginRequiredMixin,generic.CreateView):
     fields = ('titulo', 'num_paginas', 'data_publicacao', 'total_de_notas',
-            'nota_media')
+            'nota_media', 'autor', 'editora', 'genero')
     model = Livro
 
     redirect_field_name = 'livros/livro_detail.html'
