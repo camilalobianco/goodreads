@@ -11,6 +11,10 @@ class SignUp(CreateView):
     template_name = "accounts/signup.html"
 
 
+#class Perfil(generic.DetailView):
+#    model = User
+
+
 def superuser_required():
     def wrapper(wrapped):
         class WrappedClass(UserPassesTestMixin, wrapped):
