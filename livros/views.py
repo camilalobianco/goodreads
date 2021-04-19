@@ -62,3 +62,25 @@ class RetiraLivroDaLista(LoginRequiredMixin, generic.RedirectView):
             messages.success(self.request, 'O livro saiu da sua lista')
 
         return super().get(request,*args,**kwargs)
+
+class ProcuraLivro(generic.ListView):
+    model = Livro
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        print(query)
+        select_atribute =  self.request.GET.get('select_atribute')
+
+        if query:
+            if select_atribute == 'titulo':
+                object_list = self.model.objects.filter(titulo__icontains=query)
+            elif select_atribute == 'autor':
+                object_list = self.model.objects.filter(autor__nome_autor__icontains=query)
+            elif select_atribute == 'editora':
+                object_list = self.model.objects.filter(editora__nome_editora__icontains=query)
+            elif select_atribute == 'genero':
+                object_list = self.model.objects.filter(genero__genero__icontains=query)
+            else:
+                object_list = self.model.objects.none()
+        else:
+            object_list = self.model.objects.none()
+        return object_list

@@ -8,5 +8,5 @@ class ResenhaForm(forms.ModelForm):
         fields = ('texto',)
 
         widgets = {
-            'texto': forms.Textarea(attrs={'class': 'editable medium-editor-textarea'}),
+            'texto': forms.Textarea(attrs={'class': 'form-control', 'row': '3'}),
         }

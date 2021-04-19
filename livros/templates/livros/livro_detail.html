@@ -4,6 +4,9 @@
 <div class="container">
   <h1>{{livro.titulo}}</h1>
   <h2> Total de Notas: {{livro.total_de_notas}}</h2>
+  <h2>Autor : {{livro.autor.nome_autor}}</h2>
+  <h2>Genero : {{livro.genero.genero}}</h2>
+  <h2>Editora : {{livro.editora.nome_editora}}</h2>
 
   <div class="content">
     {% if user.is_authenticated %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='container'>
+  <form method='GET' action ="{% url 'livros:search' %}">
+    <input type='text' name='q' value='{{ request.GET.q }}'>
+    <select name="select_atribute" id='select-option'>
+      <option value="titulo">Título</option>
+      <option value="autor">Autor</option>
+      <option value="editora">Editora</option>
+      <option value="genero">Gênero</option>
+    </select>
+    <input class="button" type='submit' value="Search">
+  </form>
+</div>
+{% endblock %}
