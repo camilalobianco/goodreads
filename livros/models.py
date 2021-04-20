@@ -20,6 +20,7 @@ class Livro(models.Model):
     num_paginas = models.IntegerField()
     data_publicacao = models.DateField()
     total_de_notas = models.IntegerField()
+    capa = models.ImageField(upload_to='livros/capas/',blank=True, default='', null=True)
     leitores = models.ManyToManyField(User,through="UsuarioLivro")
 
     def __str__(self):

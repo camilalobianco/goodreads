@@ -3,7 +3,7 @@
 
 {% block livro_conteudo %}
 <div class="container">
-  <h4>Crie um novo livro</h4>
+  <h4 class='form-group'>Crie um novo livro</h4>
   <form method="POST" action="{% url 'livros:create' %}" id="livroForm">
   	{% csrf_token %}
   	{% bootstrap_form form %}

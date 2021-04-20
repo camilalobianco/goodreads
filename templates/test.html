@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <h1>LivroSocial</h1>
-  <h3> O que você quer ler hoje? Filtra <a href="{% url 'search' %}">aqui</a> com a gente para poder descobrir sua próxima leitura!</h3>
-</div>
 
+    <h1 class = 'titulo-main'>LivroSocial</h1>
+    <p class = 'texto-main'>O que você quer ler hoje? Filtra aqui com a gente para
+        poder<a href="{% url 'search' %}"><span id = 'texto-especial-main'>descobrir sua próxima leitura</span>!</a></p>
 {% endblock %}

@@ -1,51 +1,90 @@
-{% extends "livros/livro_base.html" %}
-
-{% block prelivro %}
-<div class="container">
-  <h1>{{livro.titulo}}</h1>
-  <h2> Total de Notas: {{livro.total_de_notas}}</h2>
-  <h2>Autor : {{livro.autor.nome_autor}}</h2>
-  <h2>Genero : {{livro.genero.genero}}</h2>
-  <h2>Editora : {{livro.editora.nome_editora}}</h2>
-
-  <div class="content">
-    {% if user.is_authenticated %}
-  	   {% if user in livro.leitores.all %}
-  		   <a href="{% url 'livros:leave' pk=livro.pk %}" class="btn btn-lg btn-warning"><span class="fa fa-times-circle-o"></span>Tirar da Lista</a>
-  	   {% else %}
-  		   <a href="{% url 'livros:join' pk=livro.pk %}" class="btn btn-lg btn-warning"><span class="fa fa-check-circle-o"></span>Colocar na Lista</a>
-  	   {% endif %}
-    {% else %}
-      <a href="{% url 'accounts:login' %}" class="btn btn-lg btn-warning">Faça login</a>
-    {% endif %}
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'livros/css/pagina-livro.css'%}">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{livro.titulo}}</title>
+  </head>
+  <div id="menu-outer">
+      <div class="table">
+        <ul id="horizontal-list">
+          <li><a href="{% url 'home' %}">LivrosSocial</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'livros:all' %}">Livros</a></li>
+            <li><a href="{% url 'livros:create' %}">Cadastrar Livros</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'accounts:login' %}">Login</a></li>
+          <li><a href="{% url 'accounts:signup' %}">Cadastre-se</a></li>
+       {% endif %}
+        </ul>
+      </div>
   </div>
-</div>
-{% endblock %}
+  <body>
+    <div>
+      {% if livro.capa %}
+        <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class = 'capa-livro'>
+      {% else %}
+      {% endif %}
+    </div>
+    <h1 class = 'titulo-livro'>{{livro.titulo}}</h1>
+    <div class = 'estrelas'>
+        <div class="rate">
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label for="star1" title="text">1 star</label>
+          </div>
+    </div>
+    <div class = 'conteudo-livro'>
+        <p><span>Autor:</span>{{ livro.autor.nome_autor }}</p>
+        <p><span>Status:</span>
+          {% if user in livro.leitores.all %}
+           Já está na sua lista
+          {% else %}
+            Não está contido na sua lista
+          {% endif %}
+        </p>
+        <p><span>ISBN:</span>{{ livro.pk }}</p>
+        <p><span>Nota média:</span>{{ livro.nota_media }}</p>
+        <p><span>Número de avaliações:</span>{{ livro.total_de_notas }}</p>
+        <p><span>Data de publicação:</span>{{ livro.data_publicacao }}</p>
+        <p><span>Editora:</span>{{livro.editora.nome_editora}}</p>
+        <p><span>Número de páginas:</span>{{ livro.num_paginas }}</p>
+    </div>
+    <div class = 'comentarios'>
+        <div class="container">
+        {% if user.is_authenticated %}
+          <a class="btn btn-primary btn-comment" href="{% url 'resenhas:adiciona_resenha' pk=livro.pk %}">Adiciona Resenha</a>
+        {% endif %}
+        <h1 class = 'titulo-comentarios'>Comentários</h1>
+        <div class = 'espaço-comentários'><div id = 'texto-comentario'>
+          {% for resenha in livro.resenhas.all %}
+          <br>
+              {% if resenha.resenha_aprovada or user.is_superuser %}
 
-{% block livro_conteudo %}
-<hr>
-<div class="container">
-{% if user.is_authenticated %}
-  <a class="btn btn-primary btn-comment" href="{% url 'resenhas:adiciona_resenha' pk=livro.pk %}">Adiciona Resenha</a>
-{% endif %}
+                      {{ resenha.data_publicacao }}
+                      {% if not resenha.resenha_aprovada %}
+                          <a class="btn btn-primary" href="{% url 'resenhas:remove_resenha' pk=resenha.pk %}"><span class="fa fa-remove"></span></a>
+                          <a class="btn btn-primary" href="{% url 'resenhas:aprova_resenha' pk=resenha.pk %}"><span class="fa fa-check"></span></a>
+                      {% endif %}
 
-{% for resenha in livro.resenhas.all %}
-<br>
-    {% if resenha.resenha_aprovada or user.is_superuser %}
+                  <p>{{ resenha.texto|safe|linebreaks }}</p>
+                  <p>Publicada por: <strong>{{ resenha.usuario }}</strong></p>
 
-            {{ resenha.data_publicacao }}
-            {% if not resenha.resenha_aprovada %}
-                <a class="btn btn-primary" href="{% url 'resenhas:remove_resenha' pk=resenha.pk %}"><span class="fa fa-remove"></span></a>
-                <a class="btn btn-primary" href="{% url 'resenhas:aprova_resenha' pk=resenha.pk %}"><span class="fa fa-check"></span></a>
-            {% endif %}
-
-        <p>{{ resenha.texto|safe|linebreaks }}</p>
-        <p>Publicada por: <strong>{{ resenha.usuario }}</strong></p>
-
-    {% endif %}
-{% empty %}
-    <p>Nenhuma resenha publicada.</p>
-{% endfor %}
-</div>
-
-{% endblock %}
+              {% endif %}
+          {% empty %}
+              <p>Nenhuma resenha publicada.</p>
+          {% endfor %}
+        </div></div>
+    </div>
+  </body>
+</html>

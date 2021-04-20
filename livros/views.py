@@ -15,7 +15,7 @@ from accounts.views import superuser_required
 @superuser_required()
 class CriaLivro(LoginRequiredMixin,generic.CreateView):
     fields = ('titulo', 'num_paginas', 'data_publicacao', 'total_de_notas',
-            'nota_media', 'autor', 'editora', 'genero')
+            'nota_media', 'autor', 'editora', 'genero', 'capa')
     model = Livro
 
     redirect_field_name = 'livros/livro_detail.html'
@@ -67,9 +67,7 @@ class ProcuraLivro(generic.ListView):
     model = Livro
     def get_queryset(self):
         query = self.request.GET.get('q')
-        print(query)
         select_atribute =  self.request.GET.get('select_atribute')
-
         if query:
             if select_atribute == 'titulo':
                 object_list = self.model.objects.filter(titulo__icontains=query)

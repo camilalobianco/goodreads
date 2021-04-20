@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+
+.body-main{
+    background: #171717;
+}
+
+.titulo-main{
+    font-family: Playfair Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 96px;
+    line-height: 128px;
+    color: #F4BD38;
+
+    position: flex;
+    text-align: center;
+    padding-top: 9%;
+}
+
+.texto-main{
+    position: relative;
+    width: 450px;
+    left: 620px;
+    top: -90px;
+
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: justify;
+    color: #FFFFFF;
+}
+
+#texto-especial-main{
+    color: #F4BD38;
+}
+
+#menu-outer {
+    text-decoration: none;
+}
+
+ul#horizontal-list {
+    position: flex;
+    text-align: center;
+	list-style: none;
+    margin-left: 50%;
+}
+
+a{
+    margin-left: 30px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    text-transform:uppercase;
+}
+
+a:hover {
+    color: #F4BD38;
+}
+
+ul#horizontal-list li {
+    display: inline;
+}
+
+.form-group{
+  color: #F4BD38;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: justify;
+}
