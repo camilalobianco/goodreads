@@ -33,47 +33,6 @@ ul#horizontal-list li {
 
 /*---------------------------FIM DA NAVBAR-----------------------------*/
 
-/*---------------------------CODIGO DA ESTRELAS-----------------------------*/
-
-.rate {
-    float: left;
-    height: 46px;
-    margin-left: 23.5%;
-    margin-top: -40px;
-    padding-right: 70px;
-}
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-}
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:white;
-}
-.rate:not(:checked) > label:before {
-    content: '★ ';
-}
-.rate > input:checked ~ label {
-    color: #F4BD38;
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #F4BD38;
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #F4BD38;
-}
-
-/*---------------------------FIM DA ESTRELAS-----------------------------*/
 
 .capa-livro{
     position: absolute;
@@ -190,6 +149,3 @@ ul#lista-horizontal li {
     display: inline;
 }
 
-#IncluiNaLista{
-  font-size: 5px !important;
-}

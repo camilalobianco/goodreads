@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'accounts/css/pagina-usuario.css'%}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html>
+    <head>
+    <meta charset="UTF-8"/>
+    <title>Usuário</title>
+    </head>
+    <div id="menu-outer">
+        <div class="table">
+          <ul id="horizontal-list">
+            <li ><a href="{% url 'home' %}" style='color:white !important;'>LivrosSocial</a></li>
+            {% if user.is_authenticated %}
+              <li style='color:white;'><a href="{% url 'livros:all' %}" style='color:white !important;'>Livros</a></li>
+              <li style='color:white;'><a href="{% url 'livros:create' %}" style='color:white !important;'>Cadastrar Livros</a></li>
+              <li style='color:white;'><a href="{% url 'accounts:logout' %}" style='color:white !important;'>Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'accounts:login' %}" style='color:white !important;'>Login</a></li>
+            <li><a href="{% url 'accounts:signup' %}" style='color:white !important;'>Cadastre-se</a></li>
+         {% endif %}
+          </ul>
+        </div>
+    </div>
+    <body>
+        <div>
+          {% if user.profile.foto_de_perfil %}
+            <img src="{{ user.profile.foto_de_perfil.url }}" alt="{{ user.username }}" class = 'capa-livro'>
+          {% else %}
+          {% endif %}
+        </div>
+        <h1 class = 'titulo-livro'>{{ user.username }}</h1>
+        <div class = 'conteudo-livro'>
+              <p><span>Livros lidos:</span> {{ livros_lidos }}</p>
+            <p><span>Quantidade de páginas lidas:</span> {{ paginas_lidas }}</p>
+            <p><span>Editora que mais leu: </span>{{ editora_mais_lida }}</p>
+            <p><span>Autor mais lido: </span>{{ autor_mais_lido }}</p>
+            <p><span>Preferências: </span>{{ genero_mais_lido }}</p>
+        </div>
+        <div class = 'comentarios'>
+            <h1 class = 'titulo-comentarios'>Biografia</h1>
+            <div class = 'espaço-comentários'><div id = 'texto-comentario'>{{ user.profile.bio }}</div></div>
+        </div>
+    </body>
+</html>

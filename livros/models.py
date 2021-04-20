@@ -41,7 +41,7 @@ class UsuarioLivro(models.Model):
     usuario_id = models.ForeignKey(User, related_name='livro_usuario', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.usario_id.username
+        return self.usuario_id.username
 
     class Meta:
         unique_together = ('livro_id','usuario_id')

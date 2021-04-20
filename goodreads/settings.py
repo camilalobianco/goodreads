@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'autor.apps.AutorConfig',
     'editora.apps.EditoraConfig',
     'genero.apps.GeneroConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

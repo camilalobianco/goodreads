@@ -8,9 +8,10 @@
 
 <div class="container">
   <h1 style='color:#F4BD38;'>Sign Up</h1>
-  <form method="POST" class="form">
+  <form method="POST" class="form" enctype="multipart/form-data">
     {% csrf_token %}
-    {% bootstrap_form form %}
+    {% bootstrap_form user_form %}
+    {% bootstrap_form profile_form %}
     {% buttons %}
       <button type="submit" class="btn btn-primary">Sign Up</button>
     {% endbuttons %}

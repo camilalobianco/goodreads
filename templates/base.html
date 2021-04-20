@@ -13,6 +13,7 @@
             {% if user.is_authenticated %}
               <li style='color:white;'><a href="{% url 'livros:all' %}" style='color:white !important;'>Livros</a></li>
               <li style='color:white;'><a href="{% url 'livros:create' %}" style='color:white !important;'>Cadastrar Livros</a></li>
+              <li style='color:white;'><a href="{% url 'accounts:profile' pk=user.profile.pk %}" style='color:white !important;'>Perfil</a></li>
               <li style='color:white;'><a href="{% url 'accounts:logout' %}" style='color:white !important;'>Logout</a></li>
             {% else %}
             <li><a href="{% url 'accounts:login' %}" style='color:white !important;'>Login</a></li>
